@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Pages animées</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+
+    #menu {
+      margin-bottom: 20px;
+    }
+
+    #menu button {
+      padding: 10px 20px;
+      margin-right: 10px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    #pages .page {
+      display: none;
+      opacity: 0;
+      transition: opacity 0.5s ease-in-out;
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      background-color: #f9f9f9;
+      max-width: 500px;
+    }
+
+    #pages .page.active {
+      display: block;
+      opacity: 1;
+    }
+
+    /* Animations */
+    @keyframes fadeOut {
+      from {
+        opacity: 1;
+        transform: translateX(0);
+      }
+      to {
+        opacity: 0;
+        transform: translateX(-100%);
+      }
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateX(100%);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    .fade-out {
+      animation: fadeOut 0.5s forwards;
+    }
+
+    .fade-in {
+      animation: fadeIn 0.5s forwards;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="menu">
+    <button data-target="page1">Page 1</button>
+    <button data-target="page2">Page 2</button>
+    <button data-target="page3">Page 3</button>
+    <button data-target="page4">Page 4</button>
+  </div>
+
+  <div id="pages">
+    <div class="page active" id="page1">
+      <h2>Page 1</h2>
+      <p>Bienvenue sur la page 1 !</p>
+    </div>
+    <div class="page" id="page2">
+      <h2>Page 2</h2>
+      <p>Voici le contenu de la page 2.</p>
+    </div>
+    <div class="page" id="page3">
+      <h2>Page 3</h2>
+      <p>Contenu intéressant de la page 3.</p>
+    </div>
+    <div class="page" id="page4">
+      <h2>Page 4</h2>
+      <p>Dernière page, la page 4.</p>
+    </div>
+  </div>
+
+  <script>
+    const buttons = document.querySelectorAll('#menu button');
+    const pages = document.querySelectorAll('#pages .page');
+
+    buttons.forEach(button => {
+      button.addEventListener('click', () => {
+        const targetId = button.getAttribute('data-target');
+        const current = document.querySelector('#pages .page.active');
+        if (current.id === targetId) return; // Si on clique sur la page déjà active, on ne fait rien
+
+        const next = document.getElementById(targetId);
+
+        // Animation de sortie de la page actuelle
+        current.classList.add('fade-out');
+
+        current.addEventListener('animationend', () => {
+          // Après la sortie, cacher la page actuelle
+          current.classList.remove('active', 'fade-out');
+          
+          // Préparer la prochaine page
+          next.classList.add('active', 'fade-in');
+
+          next.addEventListener('animationend', () => {
+            next.classList.remove('fade-in');
+          }, { once: true });
+        }, { once: true });
+      });
+    });
+  </script>
+
+</body>
+</html>
