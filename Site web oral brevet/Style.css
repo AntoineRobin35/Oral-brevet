@@ -1,12 +1,12 @@
 @font-face {
   font-family: "Neue Matana bold";
-  src: url("Image/font/NEUEMETANA-BOLD.OTF") format("opentype");
+  src: url("Image/font/NeueMetana-Bold.woff") format("opentype");
   font-weight: normal;
   font-style: normal;
 }
 @font-face {
   font-family: "Neue Matana regular";
-  src: url("Image/font/NEUEMETANA-REGULAR.OTF") format("opentype");
+  src: url("Image/font/NeueMetana-Regular.woff") format("opentype");
   font-weight: normal;
   font-style: normal;
 }
